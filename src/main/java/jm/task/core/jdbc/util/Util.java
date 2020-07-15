@@ -2,36 +2,32 @@ package jm.task.core.jdbc.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Util {
- /*   // реализуйте настройку соеденения с БД
+    private static final String url = "jdbc:mysql://localhost:3306/user?serverTimezone=UTC";
+    private static final String username = "root";
+    private static final String password = "root";
 
-        // Connect to MySQL
-        public static Connection getMySQLConnection () throws SQLException,
-                ClassNotFoundException {
-            String hostName = "localhost";
-            String dbName = "user";
-            String userName = "root";
-            String password = "root";
+    public Connection databaseConnect() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
+            System.out.println("Driver loaded success");
 
-            return getMySQLConnection(hostName, dbName, userName, password);
+       try {     Connection conn = DriverManager.getConnection(url, username, password);
+                // Statement statement = conn.createStatement();
+           System.out.println("Connection success");
+                return conn;
+            } catch (SQLException throwables) {
+           throwables.printStackTrace();
+       }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Connection failed...");
         }
 
-        public static Connection getMySQLConnection (String hostName, String dbName,
-                String userName, String password) throws SQLException,
-                ClassNotFoundException {
-            // Declare the class Driver for MySQL DB
-            // This is necessary with Java 5 (or older)
-            // Java6 (or newer) automatically find the appropriate driver.
-            // If you use Java> 5, then this line is not needed.
-            Class.forName("com.mysql.jdbc.Driver");
+        return null;
+    }
 
-            String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName;
-
-            Connection connection = DriverManager.getConnection(connectionURL, userName,
-                    password);
-
-            return connection;
-        }*/
     }
