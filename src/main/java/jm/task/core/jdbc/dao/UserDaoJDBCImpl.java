@@ -57,12 +57,10 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) throws SQLException  {
         Statement statement = null;
         try { statement = new Util().databaseConnect().createStatement();
-              if (!name.equals("") & !lastName.equals("") & age > 0) {
                   String sql = "INSERT userex(nameuser,lastnameuser,ageuser) VALUES (" + "'" + name + "'" + "," + "'" + lastName + "'" + "," + "'" + age + "'" + ");";
                   statement.executeUpdate(sql);
-                  System.out.println(getAllUsers().get(0));
+                  System.out.println(getAllUsers().get(0)+ " 0");
                   System.out.println("User с именем: " + name + " добавлен в базу данных");
-              }
           }
             catch (SQLException e) {
             e.printStackTrace();
@@ -95,11 +93,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         Statement statement = null;
-        if (users.size() == 0) {
-            statement.close();
+        if (users.size()==0){
             return null;
         }
-        if (users.size() > 0) {
             try {
                 String sql = "SELECT * FROM userex";
                 statement = new Util().databaseConnect().createStatement();
@@ -123,7 +119,6 @@ public class UserDaoJDBCImpl implements UserDao {
             //   if(users.get(0) == null) {
             //      return null;
             //  }
-        }
 
             return users;
         }
