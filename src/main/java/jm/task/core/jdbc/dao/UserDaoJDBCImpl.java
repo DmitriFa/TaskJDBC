@@ -93,9 +93,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         Statement statement = null;
-        if (users.size()==0){
-            return null;
-        }
             try {
                 String sql = "SELECT * FROM userex";
                 statement = new Util().databaseConnect().createStatement();
