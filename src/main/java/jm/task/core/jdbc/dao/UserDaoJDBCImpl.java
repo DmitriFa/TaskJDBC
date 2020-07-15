@@ -57,19 +57,19 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) throws SQLException  {
         Statement statement = null;
         try { statement = new Util().databaseConnect().createStatement();
-                  String sql = "INSERT userex(nameuser,lastnameuser,ageuser) VALUES (" + "'" + name + "'" + "," + "'" + lastName + "'" + "," + "'" + age + "'" + ");";
-                  statement.executeUpdate(sql);
-                  System.out.println(getAllUsers().get(0)+ " 0");
-                  System.out.println("User с именем: " + name + " добавлен в базу данных");
-          }
-            catch (SQLException e) {
+            String sql = "INSERT userex(nameuser,lastnameuser,ageuser) VALUES (" + "'" + name + "'" + "," + "'" + lastName + "'" + "," + "'" + age + "'" + ");";
+            statement.executeUpdate(sql);
+            System.out.println(getAllUsers().get(0)+ " 0");
+            System.out.println("User с именем: " + name + " добавлен в базу данных");
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-                statement.close();
-            }
-         //catch (SQLException e) {
-            //e.printStackTrace();
-            //statement.close();
-       // }
+            statement.close();
+        }
+        //catch (SQLException e) {
+        //e.printStackTrace();
+        //statement.close();
+        // }
         finally {
             statement.close();
         }
@@ -123,9 +123,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() throws SQLException{
         Statement statement = null;
-        createUsersTable();
-      //  if(getAllUsers().get(0) == null) {
-         //   statement.close();
+        //  if(getAllUsers().get(0) == null) {
+        //   statement.close();
         //}
         try {
             statement = new Util().databaseConnect().createStatement();
