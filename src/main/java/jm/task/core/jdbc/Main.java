@@ -14,12 +14,12 @@ public class Main {
     public Main() {
     }
     public static void main(String[] args) throws SQLException {
-        new UserDaoJDBCImpl().dropUsersTable();
-        new UserDaoJDBCImpl().createUsersTable();
-      //  new UserDaoJDBCImpl().removeUserById(0);
-      new UserDaoJDBCImpl().saveUser("Дмитрий", "Петров", (byte) 35);
-     // new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
-     // new UserDaoJDBCImpl().saveUser("Игорь", "Петров", (byte) 27);
+      //  new UserDaoJDBCImpl().dropUsersTable();
+       // new UserDaoJDBCImpl().createUsersTable();
+        new UserDaoJDBCImpl().removeUserById(1);
+     // new UserDaoJDBCImpl().saveUser("Василий", "Быков", (byte) 35);
+    //  new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
+     // new UserDaoJDBCImpl().saveUser("Игорь", "Орлов", (byte) 27);
      // new UserDaoJDBCImpl().saveUser("Сергей", "Иванов", (byte) 24);
    //   new UserDaoJDBCImpl().getAllUsers();
     //  new UserDaoJDBCImpl().cleanUsersTable();
