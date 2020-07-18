@@ -22,7 +22,11 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-
+      //  Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+      //  Transaction tx1 = session.beginTransaction();
+      //  session.save(user);
+       // tx1.commit();
+      //  session.close();
     }
 
     @Override
