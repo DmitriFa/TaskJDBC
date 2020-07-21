@@ -1,6 +1,9 @@
 package jm.task.core.jdbc.util;
 
-import com.mysql.cj.xdevapi.SessionFactory;
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +18,7 @@ public class Util {
 
     }
 
-    public Connection databaseConnect() {
+    public  Connection databaseConnect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 
@@ -25,6 +28,7 @@ public class Util {
                 Connection conn = DriverManager.getConnection(url, username, password);
                 // Statement statement = conn.createStatement();
                 System.out.println("Connection success");
+                conn.setAutoCommit(false);
                 return conn;
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -37,22 +41,23 @@ public class Util {
         return null;
     }
 
+    private static SessionFactory sessionFactory;
 
-        private static SessionFactory sessionFactory;
 
-        public static SessionFactory getSessionFactory() {
-            if (sessionFactory == null) {
-                try {
-                   // sessionFactory = new Configuration().configure().buildSessionFactory();
-                     //   Configuration configuration = new Configuration().configure();
-                   //      configuration.addAnnotatedClass(User.class);
-                    //   StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-                    //   sessionFactory = configuration.buildSessionFactory(builder.build());
-
-                } catch (Exception e) {
-                    System.out.println("Исключение!" + e);
-                }
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration().configure("jm/task/core/jdbc/model/hibernate.cfg.xml");
+                configuration.addAnnotatedClass(User.class);
+               StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+                sessionFactory =  configuration.buildSessionFactory(builder.build());
+              //
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Исключение!" + e);
             }
-            return sessionFactory;
         }
+        return sessionFactory;
+    }
+
     }

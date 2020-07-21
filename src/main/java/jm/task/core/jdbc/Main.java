@@ -2,28 +2,28 @@ package jm.task.core.jdbc;
 
 
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
-import jm.task.core.jdbc.util.Util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Main {
 
     public Main() {
     }
     public static void main(String[] args) throws SQLException {
-      //  new UserDaoJDBCImpl().dropUsersTable();
-       // new UserDaoJDBCImpl().createUsersTable();
-        new UserDaoJDBCImpl().removeUserById(1);
-     // new UserDaoJDBCImpl().saveUser("Василий", "Быков", (byte) 35);
-    //  new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
-     // new UserDaoJDBCImpl().saveUser("Игорь", "Орлов", (byte) 27);
-     // new UserDaoJDBCImpl().saveUser("Сергей", "Иванов", (byte) 24);
-   //   new UserDaoJDBCImpl().getAllUsers();
-    //  new UserDaoJDBCImpl().cleanUsersTable();
-    //  new UserDaoJDBCImpl().dropUsersTable();
+
+   new UserDaoJDBCImpl().dropUsersTable();
+   new UserDaoJDBCImpl().createUsersTable();
+     // new UserDaoHibernateImpl().removeUserById(2);
+      //  new UserDaoJDBCImpl().getAllUsers();
+    new UserDaoJDBCImpl().saveUser("Василий", "Быков", (byte) 35);
+    new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
+    new UserDaoJDBCImpl().saveUser("Игорь", "Орлов", (byte) 27);
+    new UserDaoJDBCImpl().saveUser("Михаил", "Королёв", (byte) 24);
+    //  new UserDaoJDBCImpl().getAllUsers();
+   // new UserDaoJDBCImpl().removeUserById(1);
+        // new UserDaoHibernateImpl().getAllUsers();
+   //   new UserDaoJDBCImpl().cleanUsersTable();
+  //  new UserDaoJDBCImpl().dropUsersTable();
  //  new UserDaoJDBCImpl().saveUser( null, "Fadejev", (byte) 20);
 
        //   new UserDaoJDBCImpl().getAllUsers();
