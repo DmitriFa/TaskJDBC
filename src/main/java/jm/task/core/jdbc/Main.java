@@ -19,7 +19,7 @@ public class Main {
     new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
     new UserDaoJDBCImpl().saveUser("Игорь", "Орлов", (byte) 27);
     new UserDaoJDBCImpl().saveUser("Михаил", "Королёв", (byte) 24);
-      new UserDaoJDBCImpl().getAllUsers();
+    new UserDaoJDBCImpl().getAllUsers();
     new UserDaoJDBCImpl().removeUserById(1);
         // new UserDaoHibernateImpl().getAllUsers();
    //   new UserDaoJDBCImpl().cleanUsersTable();
