@@ -26,7 +26,6 @@ public class Util {
 
             try {
                 Connection conn = DriverManager.getConnection(url, username, password);
-                // Statement statement = conn.createStatement();
                 System.out.println("Connection success");
                 conn.setAutoCommit(false);
                 return conn;

@@ -21,34 +21,7 @@ public class Main {
     new UserDaoJDBCImpl().saveUser("Михаил", "Королёв", (byte) 24);
     new UserDaoJDBCImpl().getAllUsers();
     new UserDaoJDBCImpl().removeUserById(1);
-        // new UserDaoHibernateImpl().getAllUsers();
-   //   new UserDaoJDBCImpl().cleanUsersTable();
-  //  new UserDaoJDBCImpl().dropUsersTable();
- //  new UserDaoJDBCImpl().saveUser( null, "Fadejev", (byte) 20);
 
-       //   new UserDaoJDBCImpl().getAllUsers();
-     /* try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-
-            System.out.println("Driver loaded success");
-
-            try {
-                Connection connection = new Util().databaseConnect();
-                Statement statement = connection.createStatement();
-                 int rows = statement.executeUpdate("INSERT userex(nameuser,lastnameuser,ageuser) VALUES ('Дина', 'Корзун', 23)");
-                 System.out.printf("Added %d rows", rows);
-
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("Connection failed...");
-        }
-      new UserDaoJDBCImpl().removeUserById(35);
-       // new UserDaoJDBCImpl().cleanUsersTable();
-        // new UserDaoJDBCImpl.createUsersTable();*/
     }
 
 }

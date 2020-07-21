@@ -52,18 +52,10 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     public void saveUser(String name, String lastName, byte age) throws SQLException {
-        /*Statement statement = null;
-        try { statement = new Util().databaseConnect().createStatement();
-            String sql = "INSERT userex(nameuser,lastnameuser,ageuser) VALUES (" + "'" + name + "'" + "," + "'" + lastName + "'" + "," + "'" + age + "'" + ");";
-            statement.executeUpdate(sql);
-            System.out.println(getAllUsers().get(0)+ " 0");
-
-        }*/
         PreparedStatement preparedStatement = null;
         try {
             String sql = "INSERT userex (nameuser,lastnameuser,ageuser) Values (?,?,?)";
             preparedStatement = new Util().databaseConnect().prepareStatement(sql);
-            //setAutoCommit(false);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
@@ -74,17 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
             preparedStatement.close();
         }
-          /*  try {
-                System.out.println("Transaction failed.");
-                preparedStatement.getConnection().rollback();
-            } catch (SQLException se) {
-              //  se.printStackTrace();
-                preparedStatement.close();
-            }*/
-            //catch (SQLException e) {
-            //e.printStackTrace();
-            //statement.close();
-            // }
+
             finally {
                 preparedStatement.close();
             }
@@ -92,12 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     public void removeUserById(long id) throws SQLException {
-     /*   Statement statement = null;
-        try {
-            statement = new Util().databaseConnect().createStatement();
-            String sql = "DELETE FROM userex WHERE id = " + id + ";";
-            statement.executeUpdate(sql);
-        }*/
+     
         PreparedStatement preparedStatement =null;
         try{
             String sql = "DELETE FROM userex WHERE id = ?";
@@ -112,10 +89,7 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
             preparedStatement.close();
         }
-        //catch (SQLException e) {
-        //e.printStackTrace();
-        //statement.close();
-        // }
+
         finally {
             preparedStatement.close();
         }
@@ -146,9 +120,6 @@ public class UserDaoJDBCImpl implements UserDao {
             } finally {
                 statement.close();
             }
-            //   if(users.get(0) == null) {
-            //      return null;
-            //  }
 
             return users;
         }
@@ -156,9 +127,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() throws SQLException{
         Statement statement = null;
-        //  if(getAllUsers().get(0) == null) {
-        //   statement.close();
-        //}
         try {
             statement = new Util().databaseConnect().createStatement();
             String sql = "DELETE FROM userex ";
