@@ -11,10 +11,8 @@ public class Main {
     }
     public static void main(String[] args) throws SQLException {
 
-   new UserDaoJDBCImpl().dropUsersTable();
-   new UserDaoJDBCImpl().createUsersTable();
-     // new UserDaoHibernateImpl().removeUserById(2);
-      //  new UserDaoJDBCImpl().getAllUsers();
+    new UserDaoJDBCImpl().dropUsersTable();
+    new UserDaoJDBCImpl().createUsersTable();
     new UserDaoJDBCImpl().saveUser("Василий", "Быков", (byte) 35);
     new UserDaoJDBCImpl().saveUser("Валерий", "Романов", (byte) 53);
     new UserDaoJDBCImpl().saveUser("Игорь", "Орлов", (byte) 27);

@@ -74,7 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     public void removeUserById(long id) throws SQLException {
-     
+
         PreparedStatement preparedStatement =null;
         try{
             String sql = "DELETE FROM userex WHERE id = ?";
