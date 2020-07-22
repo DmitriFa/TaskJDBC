@@ -6,6 +6,7 @@ import jm.task.core.jdbc.util.Util;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
@@ -16,23 +17,23 @@ public class UserDaoJDBCImpl implements UserDao {
         Statement statement = null;
         try {
             statement = new Util().databaseConnect().createStatement();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        try { String sql = " CREATE TABLE userex " +
-                "(id int NOT NULL AUTO_INCREMENT,"+
-                "nameuser VARCHAR(30)NOT NULL ," +
-                "lastnameuser VARCHAR(30) NOT NULL," +
-                "ageuser int NOT NULL,"+
-                "PRIMARY KEY(id));";
+        try {
+            String sql = " CREATE TABLE userex " +
+                    "(id int NOT NULL AUTO_INCREMENT," +
+                    "nameuser VARCHAR(30)NOT NULL ," +
+                    "lastnameuser VARCHAR(30) NOT NULL," +
+                    "ageuser int NOT NULL," +
+                    "PRIMARY KEY(id));";
 
             statement.executeUpdate(sql);
 
-        } catch (SQLException throwables) {
-            statement.close();
-        }
-        finally {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             statement.close();
         }
 
@@ -41,56 +42,58 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() throws SQLException {
         Statement statement = null;
         try {
-             statement = new Util().databaseConnect().createStatement();
+            statement = new Util().databaseConnect().createStatement();
             String sql = "DROP TABLE userex";
             statement.executeUpdate(sql);
         } catch (SQLException e) {
-      statement.close();
-        }
-        finally {
+            e.printStackTrace();
+        } finally {
             statement.close();
         }
     }
+
     public void saveUser(String name, String lastName, byte age) throws SQLException {
         PreparedStatement preparedStatement = null;
+
+        Connection conn = null;
         try {
+            conn = new Util().databaseConnect();
+            conn.setAutoCommit(false);
             String sql = "INSERT userex (nameuser,lastnameuser,ageuser) Values (?,?,?)";
-            preparedStatement = new Util().databaseConnect().prepareStatement(sql);
+            preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-            preparedStatement.getConnection().commit();
+            conn.commit();
             System.out.println("User с именем: " + name + " добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
+            conn.rollback();
+
+        } finally {
+            conn.setAutoCommit(true);
             preparedStatement.close();
         }
-
-            finally {
-                preparedStatement.close();
-            }
-        }
+    }
 
 
     public void removeUserById(long id) throws SQLException {
-
-        PreparedStatement preparedStatement =null;
-        try{
+        PreparedStatement preparedStatement = null;
+        Connection conn = null;
+        try {
+            conn = new Util().databaseConnect();
+            conn.setAutoCommit(false);
             String sql = "DELETE FROM userex WHERE id = ?";
-            preparedStatement =  new Util().databaseConnect().prepareStatement(sql);
+            preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-           preparedStatement.getConnection().commit();
-           // preparedStatement.getConnection().rollback();
-        }
-
-        catch (SQLException e) {
+            conn.commit();
+        } catch (SQLException e) {
             e.printStackTrace();
-            preparedStatement.close();
-        }
-
-        finally {
+            conn.rollback();
+        } finally {
+            conn.setAutoCommit(true);
             preparedStatement.close();
         }
     }
@@ -99,45 +102,49 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         Statement statement = null;
-            try {
-                String sql = "SELECT * FROM userex";
-                statement = new Util().databaseConnect().createStatement();
-                ResultSet rs = statement.executeQuery(sql);
-                statement.getConnection().commit();
-                while (rs.next()) {
-                    User user = new User();
-                    user.setId(rs.getLong(1));
-                    user.setName(rs.getString(2));
-                    user.setLastName(rs.getString(3));
-                    user.setAge(rs.getByte(4));
-                    users.add(user);
-                    System.out.println(user.toString());
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                statement.close();
-            } finally {
-                statement.close();
-            }
-
-            return users;
-        }
-
-
-    public void cleanUsersTable() throws SQLException{
-        Statement statement = null;
         try {
+            String sql = "SELECT * FROM userex";
             statement = new Util().databaseConnect().createStatement();
-            String sql = "DELETE FROM userex ";
-            statement.executeUpdate(sql);
-            statement.getConnection().commit();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getLong(1));
+                user.setName(rs.getString(2));
+                user.setLastName(rs.getString(3));
+                user.setAge(rs.getByte(4));
+                users.add(user);
+                System.out.println(user.toString());
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            
+
+        } finally {
             statement.close();
         }
-        finally {
+
+        return users;
+    }
+
+
+    public void cleanUsersTable() throws SQLException {
+        Statement statement = null;
+        Connection conn = null;
+        try {
+            conn = new Util().databaseConnect();
+            conn.setAutoCommit(false);
+            statement = conn.createStatement();
+            String sql = "DELETE FROM userex ";
+            statement.executeUpdate(sql);
+            conn.commit();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            conn.rollback();
+
+        } finally {
+            conn.setAutoCommit(true);
             statement.close();
         }
     }
