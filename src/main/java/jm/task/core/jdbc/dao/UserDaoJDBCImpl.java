@@ -9,7 +9,7 @@ import java.util.List;
 import static jm.task.core.jdbc.util.Util.databaseConnect;
 
 public class UserDaoJDBCImpl implements UserDao {
-Connection conn;
+private Connection conn;
     public UserDaoJDBCImpl() {
        Connection сonn =null;
     }
