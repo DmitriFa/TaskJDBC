@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+Connection conn;
     public UserDaoJDBCImpl() {
-
+       Connection сonn =null;
     }
 
 
@@ -55,7 +56,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) throws SQLException {
         PreparedStatement preparedStatement = null;
 
-        Connection conn = null;
         try {
             conn = new Util().databaseConnect();
             conn.setAutoCommit(false);
@@ -80,7 +80,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) throws SQLException {
         PreparedStatement preparedStatement = null;
-        Connection conn = null;
         try {
             conn = new Util().databaseConnect();
             conn.setAutoCommit(false);
@@ -118,7 +117,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            
+
 
         } finally {
             statement.close();
@@ -130,7 +129,6 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() throws SQLException {
         Statement statement = null;
-        Connection conn = null;
         try {
             conn = new Util().databaseConnect();
             conn.setAutoCommit(false);
