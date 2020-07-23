@@ -9,7 +9,7 @@ import java.util.List;
 import static jm.task.core.jdbc.util.Util.databaseConnect;
 
 public class UserDaoJDBCImpl implements UserDao {
-private Connection conn = null;
+private Connection conn = databaseConnect();
     public UserDaoJDBCImpl() {
 
     }
@@ -18,7 +18,7 @@ private Connection conn = null;
     public void createUsersTable() throws SQLException {
         Statement statement = null;
         try {
-            statement = databaseConnect().createStatement();
+            statement = conn.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ private Connection conn = null;
     public void dropUsersTable() throws SQLException {
         Statement statement = null;
         try {
-            statement = databaseConnect().createStatement();
+            statement = conn.createStatement();
             String sql = "DROP TABLE userex";
             statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -58,7 +58,6 @@ private Connection conn = null;
         PreparedStatement preparedStatement = null;
 
         try {
-            conn = databaseConnect();
             conn.setAutoCommit(false);
             String sql = "INSERT userex (nameuser,lastnameuser,ageuser) Values (?,?,?)";
             preparedStatement = conn.prepareStatement(sql);
@@ -82,7 +81,6 @@ private Connection conn = null;
     public void removeUserById(long id) throws SQLException {
         PreparedStatement preparedStatement = null;
         try {
-            conn = databaseConnect();
             conn.setAutoCommit(false);
             String sql = "DELETE FROM userex WHERE id = ?";
             preparedStatement = conn.prepareStatement(sql);
@@ -104,7 +102,7 @@ private Connection conn = null;
         Statement statement = null;
         try {
             String sql = "SELECT * FROM userex";
-            statement = databaseConnect().createStatement();
+            statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 User user = new User();
@@ -131,7 +129,6 @@ private Connection conn = null;
     public void cleanUsersTable() throws SQLException {
         Statement statement = null;
         try {
-            conn = databaseConnect();
             conn.setAutoCommit(false);
             statement = conn.createStatement();
             String sql = "DELETE FROM userex ";
