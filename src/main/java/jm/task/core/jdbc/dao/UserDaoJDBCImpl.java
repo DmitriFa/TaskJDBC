@@ -19,11 +19,6 @@ private Connection conn = databaseConnect();
         Statement statement = null;
         try {
             statement = conn.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
             String sql = " CREATE TABLE userex " +
                     "(id int NOT NULL AUTO_INCREMENT," +
                     "nameuser VARCHAR(30)NOT NULL ," +
