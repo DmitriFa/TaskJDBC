@@ -10,11 +10,15 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="@localhost" uuid="b58b0ddc-ed87-4aab-94e2-a68762b9f8e4">
+    <data-source source="LOCAL" name="src:resources:hibernate.cfg.xml/Hibernate" uuid="8406e9e3-10f4-489a-b214-360ecfbcd208">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+/Users/lipsuke/Downloads/CoreTaskTemplate-master/src/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/user?serverTimezone=UTC</jdbc-url>
     </data-source>
   </component>
 </project>

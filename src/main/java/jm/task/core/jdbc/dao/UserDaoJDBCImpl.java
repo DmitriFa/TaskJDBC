@@ -49,7 +49,7 @@ private Connection conn = databaseConnect();
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public  void saveUser(String name, String lastName, byte age) throws SQLException {
         PreparedStatement preparedStatement = null;
 
         try {
