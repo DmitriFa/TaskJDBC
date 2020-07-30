@@ -17,7 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
 
     @Override
-    public void createUsersTable()throws SQLException {
+    public void createUsersTable() throws SQLException {
         String sql = " CREATE TABLE userex " +
                 "(id int NOT NULL AUTO_INCREMENT," +
                 "nameuser VARCHAR(30)NOT NULL ," +
@@ -26,9 +26,15 @@ public class UserDaoHibernateImpl implements UserDao {
                 "PRIMARY KEY(id));";
         Session session = Util.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.createSQLQuery(sql).executeUpdate();
-        tx1.commit();
-        session.close();
+        try {
+            session.createSQLQuery(sql).executeUpdate();
+            tx1.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx1.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -36,35 +42,51 @@ public class UserDaoHibernateImpl implements UserDao {
         String sql = "DROP TABLE userex";
         Session session = Util.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.createSQLQuery(sql).executeUpdate();
-        tx1.commit();
-        session.close();
+        try {
+            session.createSQLQuery(sql).executeUpdate();
+            tx1.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx1.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) throws HibernateException {
-     User user = new User(name,lastName,age);
-     Session session = Util.getSessionFactory().openSession();
-     Transaction tx1 = session.beginTransaction();
-     session.save(user);
-     tx1.commit();
-     session.close();
-    }
-
-    @Override
-    public void removeUserById(long id)throws HibernateException {
-       // user = getAllUsers().get((int) id-1);
+        User user = new User(name, lastName, age);
         Session session = Util.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(Util.getSessionFactory().openSession().get(User.class,id));
-        tx1.commit();
-      // Util.getSessionFactory().openSession().get(User.class, id);
-       session.close();
+        try {
+            session.save(user);
+            tx1.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx1.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public List<User> getAllUsers() throws SQLException{
-        List<User> users = (List<User>)Util.getSessionFactory().openSession().createQuery("From User").list();
+    public void removeUserById(long id) throws HibernateException {
+        Session session = Util.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        try {
+            session.delete(Util.getSessionFactory().openSession().get(User.class, id));
+            tx1.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx1.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() throws SQLException {
+        List<User> users = (List<User>) Util.getSessionFactory().openSession().createQuery("From User").list();
         return users;
     }
 
@@ -73,8 +95,15 @@ public class UserDaoHibernateImpl implements UserDao {
         String sql = "DELETE FROM userex ";
         Session session = Util.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.createSQLQuery(sql).executeUpdate();
-        tx1.commit();
-        session.close();
+        try {
+            session.createSQLQuery(sql).executeUpdate();
+            tx1.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx1.rollback();
+        } finally {
+            session.close();
+        }
     }
 }
+
